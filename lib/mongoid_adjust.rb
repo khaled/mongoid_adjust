@@ -39,6 +39,10 @@ module Mongoid::Document
 
   private 
 
+  def set_allowed?(key)
+    Mongoid.allow_dynamic_fields && !respond_to?("#{key}=")
+  end
+
   def adjust_by_proc! key, proc
     if set_allowed?(key)
       current_val = @attributes[key.to_s]
